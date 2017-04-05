@@ -3,14 +3,14 @@ import time
 
 def func(msg):
     print("msg:"+ msg)
-    time.sleep(3)
+    time.sleep(1)
     print("end")
     return "done" + msg
 
 if __name__ == "__main__":
-    pool = multiprocessing.Pool(processes=4)
+    pool = multiprocessing.Pool(processes=8)
     result = []
-    for i in range(0,6):
+    for i in range(0,20000):
         msg="hello %d"%(i)
         result.append(pool.apply_async(func,(msg,)))
     pool.close()
