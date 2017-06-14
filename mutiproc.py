@@ -10,7 +10,7 @@ def func(msg):
 if __name__ == "__main__":
     pool = multiprocessing.Pool(processes=8)
     result = []
-    for i in range(0,20000):
+    for i in range(0,100):
         msg="hello %d"%(i)
         result.append(pool.apply_async(func,(msg,)))
     pool.close()
