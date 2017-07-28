@@ -1,28 +1,10 @@
-import datetime as DT
-from matplotlib import pyplot as plt
-from matplotlib.dates import date2num
-
-data = [(DT.datetime.strptime('2010-02-05', "%Y-%m-%d"), 123),
-        (DT.datetime.strptime('2010-02-19', "%Y-%m-%d"), 678),
-        (DT.datetime.strptime('2010-03-05', "%Y-%m-%d"), 987),
-        (DT.datetime.strptime('2010-04-19', "%Y-%m-%d"), 345)]
-
-x = [date2num(date) for (date, value) in data]
-y = [value for (date, value) in data]
-
-fig = plt.figure()
-
-graph = fig.add_subplot(111)
-
-# Plot the data as a red line with round markers
-graph.plot(x,y,'r-o')
-
-# Set the xtick locations to correspond to just the dates you entered.
-graph.set_xticks(x)
-
-# Set the xtick labels to correspond to just the dates you entered.
-graph.set_xticklabels(
-        [date.strftime("%Y-%m-%d") for (date, value) in data]
-        )
-
-plt.show()
+import numpy as np
+from matplotlib.pyplot import plot, show
+x = np.linspace(0, 2 * np.pi, 30)
+wave = np.cos(x)  #创建一个包含30个点的余弦波信号。
+transformed = np.fft.fft(wave)  #使用fft函数对余弦波信号进行傅里叶变换。
+shifted = np.fft.fftshift(transformed) #使用fftshift函数进行移频操作。
+print(np.all((np.fft.ifftshift(shifted) - transformed) < 10 ** -9))  #用ifftshift函数进行逆操作，这将还原移频操作前的信号。
+plot(transformed, lw=2)
+plot(shifted, lw=3)
+show()
